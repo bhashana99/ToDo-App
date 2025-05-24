@@ -34,4 +34,13 @@ export class TodoService {
 
         return  this.todoRepo.findOne({where:{id}});
     }
+
+    async deleteTodo(id:number){
+        try {
+          return  await this.todoRepo.delete(id);
+        } catch (error) {
+            throw new InternalServerErrorException("Something went wrong") 
+        }
+      
+    }
 }
