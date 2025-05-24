@@ -28,4 +28,10 @@ export class TodoService {
 
         
     }
+
+    async changeTodoStatus(id:number,status:ToDoStatus){
+        await this.todoRepo.update({id},{status})
+
+        return  this.todoRepo.findOne({where:{id}});
+    }
 }

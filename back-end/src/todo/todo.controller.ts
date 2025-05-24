@@ -1,6 +1,8 @@
+import { TodoStatusValidationPipe } from './../pipes/TodoStatusValidation.pipe';
 import { CreateToDoDTO } from 'src/DTO/create-todo.dto';
 import { TodoService } from './todo.service';
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, ValidationPipe } from '@nestjs/common';
+import { ToDoStatus } from 'src/Entity/todo.entity';
 
 @Controller('todos')
 export class TodoController {
@@ -23,5 +25,10 @@ export class TodoController {
       
 
         return this.todoService.createTodo(data);
+    }
+
+    @Patch(':id')
+    changeTodoStatus(@Body('status',TodoStatusValidationPipe) status:ToDoStatus,@Param('id') id:number){
+        return    this.todoService.changeTodoStatus(id,status);
     }
 }
