@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateToDoDTO } from 'src/DTO/create-todo.dto';
 import { ToDoEntity, ToDoStatus } from 'src/Entity/todo.entity';
 import { Repository } from 'typeorm';
 
@@ -12,11 +13,11 @@ export class TodoService {
         return await this.todoRepo.find();
     }
 
-    async createTodo(title:string, description:string){
+    async createTodo(data:CreateToDoDTO){
         const todo:ToDoEntity = new ToDoEntity();
 
-        todo.title = title;
-        todo.description = description;
+        todo.title = data.title;
+        todo.description = data.description;
         todo.status = ToDoStatus.OPEN;
 
         this.todoRepo.create(todo);
